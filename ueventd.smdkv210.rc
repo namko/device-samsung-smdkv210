@@ -1,0 +1,59 @@
+
+/dev/pvrsrvkm             0666   system     system
+/dev/video0               0666   system     camera
+/dev/video1               0666   system     camera
+/dev/video2               0666   system     camera
+/dev/video14              0666   system     system
+/dev/video21              0666   system     system
+/dev/video22              0666   system     system
+
+/dev/s3c-jpg              0666   system     camera
+/dev/s3c-mem              0666   system     system
+/dev/s3c-mfc              0666   system     graphics
+
+# for TVOUT
+/dev/i2c-1		  0666   system	    system
+/dev/CEC		  0666   system	    system
+
+# for G2D
+/dev/sec-g2d		  0666   system	    system
+
+# for copybit
+/dev/pmem_gpu1            0666   system     graphics
+/dev/s3c_bc		  0666   system	    graphics
+
+# add by urbetter                                   
+/dev/mma7660              0666   system     system
+
+/dev/ttyUSB0              0666   system     system
+/dev/ttyUSB1              0666   system     system
+/dev/ttyUSB2              0666   system     system
+/dev/ttyUSB3              0666   system     system
+/dev/ttyACM0              0666   system     system
+/dev/ttyACM1              0666   system     system
+/dev/s3c2410_serial0      0666   system     system
+/dev/s3c2410_serial1      0666   system     system
+/dev/s3c2410_serial2      0666   system     system
+/dev/s3c2410_serial3      0666   system     system
+/dev/ut_bt_dev            0666   system     system
+
+/dev/snd/timer           0666   audio    audio 
+/dev/snd/controlC0       0666   audio    audio      
+/dev/snd/audio           0666   audio    audio
+
+/dev/snd/controlC0		0666   audio    audio 
+/dev/snd/pcmC0D0c		0666   audio    audio 
+/dev/snd/pcmC0D0p 		0666   audio    audio
+
+/dev/snd/controlC1		0666   audio    audio 
+/dev/snd/pcmC1D0p 		0666   audio    audio 
+/dev/snd/pcmC1D1c		0666   audio    audio 
+
+/dev/input/event0            0666   system     system
+/dev/input/event1            0666   system     system
+/dev/input/event2            0666   system     system
+/dev/input/event3            0666   system     system
+/dev/input/event4            0666   system     system
+/dev/input/js0            0666   system     system
+/dev/input/mice            0666   system     system
+/dev/input/mouse0            0666   system     system
