@@ -31,7 +31,7 @@
 /*****************************************************************************/
 
 MmaSensor::MmaSensor()
-    : SensorBase(NULL, "mma7660abs"),
+    : SensorBase(NULL, "mma7660"),
       mEnabled(1),
       mInputReader(4),
       mHasPendingEvent(false),
