@@ -2031,7 +2031,7 @@ status_t CameraHardwareSec::storeMetaDataInBuffers(bool enable)
 static CameraInfo sCameraInfo[] = {
     {
         CAMERA_FACING_FRONT,
-        270,  /* orientation */
+        0,  /* orientation */
     }
 };
 
