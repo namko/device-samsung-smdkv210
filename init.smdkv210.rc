@@ -153,7 +153,7 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
     oneshot
 
 # Install Busybox
-service check_property /system/xbin/busybox sh /system/etc/install_busybox.sh
+service install_busybox /system/xbin/busybox sh /system/etc/install_busybox.sh
     class main
     oneshot
 
