@@ -123,7 +123,7 @@ service wpa_supplicant /system/bin/wpa_supplicant -dd -Dwext -iwlan0 -c /system/
     oneshot
 
 # Wi-Fi (DHCPCD)
-service dhcpcd_wlan0 /system/bin/dhcpcd -d -f/system/etc/dhcpcd/dhcpcd.conf wlan0
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     class main
     group system dhcp
     disabled
