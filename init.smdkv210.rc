@@ -47,13 +47,6 @@ on boot
     # cpufreq, set ondemand governor
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
 
-    # Load kernel modules
-    insmod /system/lib/modules/asix.ko
-    insmod /system/lib/modules/battery.ko
-    insmod /system/lib/modules/button_mid713.ko
-    insmod /system/lib/modules/mma7660.ko
-    insmod /system/lib/modules/sr9700.ko
-
 on fs
     mount ext4 /dev/block/mmcblk1p4 /data nosuid nodev
     mount ext4 /dev/block/mmcblk1p3 /cache nosuid nodev
@@ -61,9 +54,10 @@ on fs
 on post-fs
     # create wifi folders
     mkdir /system/etc/wifi 0770 wifi wifi
-    chmod 0777 /system/etc/wifi
-    chmod 0666 /system/etc/wifi/wpa_supplicant.conf
+    chown wifi wifi /system/etc/wifi
     chown wifi wifi /system/etc/wifi/wpa_supplicant.conf
+    chmod 0770 /system/etc/wifi
+    chmod 0666 /system/etc/wifi/wpa_supplicant.conf
 
     # permissions for bluetooth.
     chown bluetooth bluetooth /system/etc/bluetooth
@@ -71,14 +65,14 @@ on post-fs
     chown bluetooth bluetooth ro.bt.bdaddr_path
     chown bluetooth bluetooth /dev/s3c2410_serial3
     chmod 0600 /dev/s3c2410_serial3
-    chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
 
     # Owners, Modes for Bluetooth
-    chmod 0660 sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    write sys/class/rfkill/rfkill0/state 0
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    write /sys/class/rfkill/rfkill0/state 0
 
     # Permissions for System Server and daemons.
     chown system system /sys/class/backlight/pwm-backlight/brightness
@@ -92,18 +86,23 @@ on post-fs
 
 on post-fs-data
     mkdir /data/system/ 0771 system system
+    chown system system /data/system
+    chmod 0771 /data/system
 
     # wpa_supplicant control socket for android wifi.c
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     chown wifi wifi /data/misc/wifi
+    chown wifi wifi /data/misc/wifi/sockets
     chown wifi wifi /data/misc/wifi/wpa_supplicant.conf
     chmod 0770 /data/misc/wifi
+    chmod 0770 /data/misc/wifi/sockets
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
 
     # for dhcpd
     mkdir /data/misc/dhcp 0777 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
+    chmod 0777 /data/misc/dhcp
 
     setprop vold.post_fs_data_done 1
 
@@ -115,7 +114,7 @@ service pvrsrvinit /system/vendor/bin/pvrsrvinit
     oneshot
 
 # Wi-Fi
-service wpa_supplicant /system/bin/wpa_supplicant -dd -Dwext -iwlan0 -c /system/etc/wifi/wpa_supplicant.conf
+service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c /system/etc/wifi/wpa_supplicant.conf
     class main
     group system wifi inet
     socket wpa_wlan0 dgram 660 wifi wifi
@@ -152,17 +151,12 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
-# Install Busybox
-service install_busybox /system/xbin/busybox sh /system/etc/install_busybox.sh
+# Perform initial setup.
+service initial_setup /system/xbin/busybox sh /system/etc/initial_setup.sh
     class main
     oneshot
 
-# Check property for first boot
-service check_property /system/xbin/busybox sh /system/etc/check_property.sh
-    class main
-    oneshot
-
-# Load driver kernel modules
+# Load driver kernel modules, if present.
 service insmod /system/xbin/busybox sh /system/etc/insmod.sh
     class main
     oneshot

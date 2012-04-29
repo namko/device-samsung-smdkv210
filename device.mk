@@ -65,7 +65,8 @@ PRODUCT_COPY_FILES += \
 	device/samsung/smdkv210/busybox:system/xbin/busybox \
 	device/samsung/smdkv210/insmod.sh:system/etc/insmod.sh \
 	device/samsung/smdkv210/check_property.sh:system/etc/check_property.sh \
-	device/samsung/smdkv210/install_busybox.sh:system/etc/install_busybox.sh
+	device/samsung/smdkv210/install_busybox.sh:system/etc/install_busybox.sh \
+	device/samsung/smdkv210/initial_setup.sh:system/etc/initial_setup.sh
 
 # Bluetooth setup
 PRODUCT_COPY_FILES += \
