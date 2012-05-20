@@ -134,6 +134,17 @@ service iprenew_wlan0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
+# AP mode daemon for Atheros AR600x
+service hostapd /system/bin/hostapd -dddd /data/misc/wifi/hostapd.conf
+    user root
+    group root
+    oneshot
+    disabled
+
+# Bluetooth/WLAN coexistance filter for Atheros AR600x
+service abtfilt /system/bin/abtfilt -c -d -z -n
+    user root
+
 # Bluetooth
 service hciattach /system/bin/hciattach -n /dev/s3c2410_serial3 any 38400 flow                             
     class main

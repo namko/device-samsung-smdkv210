@@ -76,6 +76,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/samsung/smdkv210/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
 	device/samsung/smdkv210/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+	device/samsung/smdkv210/hostapd.conf:system/etc/wifi/hostapd.conf \
 	device/samsung/smdkv210/ar6000.ko:system/lib/modules/ar6000.ko \
 	device/samsung/smdkv210/proprietary/wifi/data.patch.hw2_0.bin:system/wifi/data.patch.hw2_0.bin \
 	device/samsung/smdkv210/proprietary/wifi/athwlan.bin.z77:system/wifi/athwlan.bin.z77 \
