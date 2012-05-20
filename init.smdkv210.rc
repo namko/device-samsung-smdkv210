@@ -2,19 +2,16 @@ import init.smdkv210.usb.rc
 
 on init
     export EXTERNAL_STORAGE /mnt/sdcard
-    export EXTERNAL_STORAGE_SD /mnt/sdcard
-    export EXTERNAL_STORAGE_UDISK /mnt/udisk
-    export EXTERNAL_STORAGE_EXTSD /mnt/extsd
 
     # create mountpoints
     mkdir /mnt 0775 root system
     mkdir /mnt/sdcard 0000 system system
+    mkdir /mnt/intsd 0000 system system
     mkdir /mnt/udisk 0000 system system
-    mkdir /mnt/extsd 0000 system system
 
     # Backwards Compat - XXX: Going away in G*
     symlink /mnt/sdcard /sdcard
-    symlink /mnt/extsd /extsd
+    symlink /mnt/intsd /intsd
     symlink /mnt/udisk /udisk
 
     # Secure container public mount points.
@@ -48,8 +45,9 @@ on boot
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
 
 on fs
-    mount ext4 /dev/block/mmcblk1p4 /data nosuid nodev
-    mount ext4 /dev/block/mmcblk1p3 /cache nosuid nodev
+    mount ext4 /dev/block/mmcblk0p3 /data nosuid nodev
+    mount ext4 /dev/block/mmcblk0p2 /cache nosuid nodev
+    mount vfat /dev/block/mmcblk0p1 /mnt/intsd nosuid nodev
 
 on post-fs
     # create wifi folders
