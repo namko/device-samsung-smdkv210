@@ -1646,7 +1646,7 @@ status_t AudioHardware::AudioStreamInALSA::open_l()
 
     LOGV("open pcm_in driver");
     TRACE_DRIVER_IN(DRV_PCM_OPEN)
-    mPcm = pcm_open(0, 0, flags, &config);  // SMDKV210: Which device?
+    mPcm = pcm_open(1, 0, flags, &config);  // SMDKV210: Use the second audio device.
     TRACE_DRIVER_OUT
     if (!pcm_is_ready(mPcm)) {
         LOGE("cannot open pcm_in driver: %s\n", pcm_get_error(mPcm));
