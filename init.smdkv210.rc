@@ -45,6 +45,7 @@ on boot
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
 
 on fs
+    mount ext4 /dev/block/mmcblk0p4 /system
     mount ext4 /dev/block/mmcblk0p3 /data nosuid nodev
     mount ext4 /dev/block/mmcblk0p2 /cache nosuid nodev
     mount vfat /dev/block/mmcblk0p1 /mnt/intsd nosuid nodev
