@@ -30,7 +30,6 @@ LOCAL_SRC_FILES := 						\
 				sensors.cpp 			\
 				SensorBase.cpp			\
                 mma7660.cpp             \
-                GSensor.cpp             \
                 InputEventReader.cpp
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libdl

@@ -32,12 +32,10 @@
 
 #include "sensors.h"
 #include "mma7660.h"
-#include "GSensor.h"
 
 /*****************************************************************************/
 
 #define SENSORS_ACCELERATION_HANDLE     0
-#define SENSORS_GRAVITY_HANDLE          1
 
 /*****************************************************************************/
 
@@ -46,12 +44,7 @@ static const struct sensor_t sSensorList[] = {
         { "MMA7660 3-axis Accelerometer",
           "Freescale Semiconductor",
           1, SENSORS_ACCELERATION_HANDLE,
-          SENSOR_TYPE_ACCELEROMETER, RANGE_A, CONVERT_A, 0.23f, 20000, { } },
-
-        { "Gravity Sensor",
-          "Google, Inc.",
-          1, SENSORS_GRAVITY_HANDLE,
-          SENSOR_TYPE_GRAVITY, RANGE_G, CONVERT_G, 0.23f, 20000, { } },
+          SENSOR_TYPE_ACCELEROMETER, RANGE_A, CONVERT_A, 0.35f, 8000, { } },
 };
 
 static int open_sensors(const struct hw_module_t* module, const char* id,
@@ -94,7 +87,6 @@ struct sensors_poll_context_t {
 private:
     enum {
         accel           = 0,
-        gravity         = 1,
         numSensorDrivers,
         numFds,
     };
@@ -109,8 +101,6 @@ private:
         switch (handle) {
             case ID_A:
                 return accel;
-            case ID_G:
-                return gravity;
         }
         return -EINVAL;
     }
@@ -124,11 +114,6 @@ sensors_poll_context_t::sensors_poll_context_t()
     mPollFds[accel].fd = mSensors[accel]->getFd();
     mPollFds[accel].events = POLLIN;
     mPollFds[accel].revents = 0;
-
-    mSensors[gravity] = new GSensor();
-    mPollFds[gravity].fd = mSensors[gravity]->getFd();
-    mPollFds[gravity].events = POLLIN;
-    mPollFds[gravity].revents = 0;
 
     int wakeFds[2];
     int result = pipe(wakeFds);

@@ -77,8 +77,6 @@ int MmaSensor::setInitialState() {
 }
 
 int MmaSensor::enable(int32_t, int en) {
-    // This does nothing because the driver doesnt support this
-    // functionality yet.
     int flags = en ? 1 : 0;
     if (flags != mEnabled) {
         int fd;
@@ -111,8 +109,6 @@ bool MmaSensor::hasPendingEvents() const {
 
 int MmaSensor::setDelay(int32_t handle, int64_t delay_ns)
 {
-    // This does nothing because the driver doesnt support this
-    // functionality yet.
     int fd;
     strcpy(&input_sysfs_path[input_sysfs_path_len], "poll_delay");
     fd = open(input_sysfs_path, O_RDWR);
