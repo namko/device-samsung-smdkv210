@@ -188,7 +188,7 @@ class SecCamera : public virtual RefBase {
 public:
 
     enum CAMERA_ID {
-        CAMERA_ID_FRONT = 0,
+        CAMERA_ID_FRONT = 0
     };
 
     enum JPEG_QUALITY {
@@ -204,13 +204,6 @@ public:
         OBJECT_TRACKING_MAX,
     };
 
-    /*VT call*/
-    enum VT_MODE {
-        VT_MODE_OFF,
-        VT_MODE_ON,
-        VT_MODE_MAX,
-    };
-
     /*Camera sensor mode - Camcorder fix fps*/
     enum SENSOR_MODE {
         SENSOR_MODE_CAMERA,
@@ -222,14 +215,6 @@ public:
         SHOT_MODE_SINGLE        = 0,
         SHOT_MODE_CONTINUOUS    = 1,
         SHOT_MODE_PANORAMA      = 2,
-        SHOT_MODE_SMILE         = 3,
-        SHOT_MODE_SELF          = 6,
-    };
-
-    enum CHK_DATALINE {
-        CHK_DATALINE_OFF,
-        CHK_DATALINE_ON,
-        CHK_DATALINE_MAX,
     };
 
     int m_touch_af_start_stop;
@@ -336,12 +321,6 @@ public:
     int             setSharpness(int sharpness_value);
     int             getSharpness(void);
 
-    int             setWDR(int wdr_value);
-    int             getWDR(void);
-
-    int             setAntiShake(int anti_shake);
-    int             getAntiShake(void);
-
     int             setJpegQuality(int jpeg_qality);
     int             getJpegQuality(void);
 
@@ -355,12 +334,6 @@ public:
     int             setSmartAuto(int smart_auto);
     int             getSmartAuto(void);
     int             getAutosceneStatus(void);
-
-    int             setBeautyShot(int beauty_shot);
-    int             getBeautyShot(void);
-
-    int             setVintageMode(int vintage_mode);
-    int             getVintageMode(void);
 
     int             setFocusMode(int focus_mode);
     int             getFocusMode(void);
@@ -392,14 +365,6 @@ public:
     int             setCameraSensorReset(void);
     int             setSensorMode(int sensor_mode); /* Camcorder fix fps */
     int             setShotMode(int shot_mode);     /* Shot mode */
-    /*VT call*/
-    int             setVTmode(int vtmode);
-    int             getVTmode(void);
-    int             setBlur(int blur_level);
-    int             getBlur(void);
-    int             setDataLineCheck(int chk_dataline);
-    int             getDataLineCheck(void);
-    int             setDataLineCheckStop(void);
     int             setDefultIMEI(int imei);
     int             getDefultIMEI(void);
     const __u8*     getCameraSensorName(void);
@@ -487,13 +452,9 @@ private:
 
     int             m_angle;
     int             m_anti_banding;
-    int             m_wdr;
-    int             m_anti_shake;
     int             m_zoom_level;
     int             m_object_tracking;
     int             m_smart_auto;
-    int             m_beauty_shot;
-    int             m_vintage_mode;
     int             m_face_detect;
     int             m_object_tracking_start_stop;
     int             m_recording_width;
@@ -503,15 +464,9 @@ private:
     long            m_gps_longitude; /* degrees * 1e7 */
     long            m_gps_altitude;  /* metres * 100 */
     long            m_gps_timestamp;
-    int             m_vtmode;
     int             m_sensor_mode; /*Camcorder fix fps */
     int             m_shot_mode; /* Shot mode */
     int             m_exif_orientation;
-    int             m_blur_level;
-    int             m_chk_dataline;
-    int             m_video_gamma;
-    int             m_slow_ae;
-    int             m_caf_on_off;
     int             m_default_imei;
     int             m_camera_af_flag;
 

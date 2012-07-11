@@ -150,7 +150,7 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
     int snapshot_max_height = 0;
 
     p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES,
-          "640x480,320x240,176x144");
+          "640x480");
     p.set(CameraParameters::KEY_SUPPORTED_PICTURE_SIZES,
           "640x480");
 
@@ -194,8 +194,8 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
           "160x120,0x0");
     p.set(CameraParameters::KEY_JPEG_THUMBNAIL_WIDTH, "160");
     p.set(CameraParameters::KEY_JPEG_THUMBNAIL_HEIGHT, "120");
-    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FRAME_RATES, "15");
-    p.setPreviewFrameRate(15);
+    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FRAME_RATES, "10");
+    p.setPreviewFrameRate(10);
 
     parameterString = CameraParameters::EFFECT_NONE;
     parameterString.append(",");
@@ -205,9 +205,19 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
     parameterString.append(",");
     parameterString.append(CameraParameters::EFFECT_SEPIA);
 
+    parameterString = CameraParameters::SCENE_MODE_AUTO;
+    parameterString.append(",");
+    parameterString.append(CameraParameters::SCENE_MODE_PORTRAIT);
+    parameterString.append(",");
+    parameterString.append(CameraParameters::SCENE_MODE_LANDSCAPE);
+    p.set(CameraParameters::KEY_SUPPORTED_SCENE_MODES,
+          parameterString.string());
+    p.set(CameraParameters::KEY_SCENE_MODE,
+          CameraParameters::SCENE_MODE_AUTO);
+
     p.set(CameraParameters::KEY_SUPPORTED_EFFECTS, parameterString.string());
-    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(7500,30000)");
-    p.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, "7500,30000");
+    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(7500,10000)");
+    p.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, "7500,10000");
     p.set(CameraParameters::KEY_FOCAL_LENGTH, "0.9");
 
     parameterString = CameraParameters::WHITE_BALANCE_AUTO;
@@ -242,20 +252,13 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
     ip.set("iso", "auto");
     ip.set("metering", "center");
 
-    ip.set("wdr", 0);
-    ip.set("chk_dataline", 0);
-    if (cameraId == SecCamera::CAMERA_ID_FRONT) {
-        ip.set("vtmode", 0);
-        ip.set("blur", 0);
-    }
-
     p.set(CameraParameters::KEY_HORIZONTAL_VIEW_ANGLE, "51.2");
     p.set(CameraParameters::KEY_VERTICAL_VIEW_ANGLE, "39.4");
 
     p.set(CameraParameters::KEY_EXPOSURE_COMPENSATION, "0");
-    p.set(CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, "4");
-    p.set(CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, "-4");
-    p.set(CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, "0.5");
+    p.set(CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, "2");
+    p.set(CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, "-2");
+    p.set(CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, "1");
 
     mParameters = p;
     mInternalParameters = ip;
@@ -270,7 +273,7 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
     mSecCamera->setContrast(CONTRAST_DEFAULT);
     mSecCamera->setSharpness(SHARPNESS_DEFAULT);
     mSecCamera->setSaturation(SATURATION_DEFAULT);
-    mSecCamera->setFrameRate(15);
+    mSecCamera->setFrameRate(10);
 }
 
 CameraHardwareSec::~CameraHardwareSec()
@@ -1679,7 +1682,28 @@ status_t CameraHardwareSec::setParameters(const CameraParameters& params)
         ret = UNKNOWN_ERROR;
     }
 
+    int new_scene_mode = -1;
     const char *new_focus_mode_str = params.get(CameraParameters::KEY_FOCUS_MODE);
+
+    if (!strcmp(new_scene_mode_str, CameraParameters::SCENE_MODE_AUTO)) {
+        new_scene_mode = SCENE_MODE_NONE;
+    } else if (!strcmp(new_scene_mode_str, CameraParameters::SCENE_MODE_PORTRAIT)) {
+            new_scene_mode = SCENE_MODE_PORTRAIT;
+    } else if (!strcmp(new_scene_mode_str, CameraParameters::SCENE_MODE_LANDSCAPE)) {
+        new_scene_mode = SCENE_MODE_LANDSCAPE;
+    } else {
+        LOGE("%s::unmatched scene_mode(%s)", __func__, new_scene_mode_str);
+        ret = UNKNOWN_ERROR;
+    }
+
+    if (0 <= new_scene_mode) {
+        if (mSecCamera->setSceneMode(new_scene_mode) < 0) {
+            LOGE("%s::mSecCamera->setSceneMode(%d) fail", __func__, new_scene_mode);
+            ret = UNKNOWN_ERROR;
+        } else {
+            mParameters.set(CameraParameters::KEY_SCENE_MODE, new_scene_mode_str);
+        }
+    }
 
     if (!isSupportedParameter(new_focus_mode_str,
                 mParameters.get(CameraParameters::KEY_SUPPORTED_FOCUS_MODES))) {
@@ -1729,41 +1753,12 @@ status_t CameraHardwareSec::setParameters(const CameraParameters& params)
         }
     }
 
-    //vt mode
-    int new_vtmode = mInternalParameters.getInt("vtmode");
-    if (0 <= new_vtmode) {
-        if (mSecCamera->setVTmode(new_vtmode) < 0) {
-            LOGE("ERR(%s):Fail on mSecCamera->setVTMode(%d)", __func__, new_vtmode);
-            ret = UNKNOWN_ERROR;
-        }
-    }
-
     //contrast
     int new_contrast = mInternalParameters.getInt("contrast");
 
     if (0 <= new_contrast) {
         if (mSecCamera->setContrast(new_contrast) < 0) {
             LOGE("ERR(%s):Fail on mSecCamera->setContrast(%d)", __func__, new_contrast);
-            ret = UNKNOWN_ERROR;
-        }
-    }
-
-    //WDR
-    int new_wdr = mInternalParameters.getInt("wdr");
-
-    if (0 <= new_wdr) {
-        if (mSecCamera->setWDR(new_wdr) < 0) {
-            LOGE("ERR(%s):Fail on mSecCamera->setWDR(%d)", __func__, new_wdr);
-            ret = UNKNOWN_ERROR;
-        }
-    }
-
-    //anti shake
-    int new_anti_shake = mInternalParameters.getInt("anti-shake");
-
-    if (0 <= new_anti_shake) {
-        if (mSecCamera->setAntiShake(new_anti_shake) < 0) {
-            LOGE("ERR(%s):Fail on mSecCamera->setWDR(%d)", __func__, new_anti_shake);
             ret = UNKNOWN_ERROR;
         }
     }
@@ -1853,51 +1848,6 @@ status_t CameraHardwareSec::setParameters(const CameraParameters& params)
         }
     }
 
-    //gamma
-    const char *new_gamma_str = mInternalParameters.get("video_recording_gamma");
-
-    if (new_gamma_str != NULL) {
-        int new_gamma = -1;
-        if (!strcmp(new_gamma_str, "off"))
-            new_gamma = GAMMA_OFF;
-        else if (!strcmp(new_gamma_str, "on"))
-            new_gamma = GAMMA_ON;
-        else {
-            LOGE("%s::unmatched gamma(%s)", __func__, new_gamma_str);
-            ret = UNKNOWN_ERROR;
-        }
-
-        if (0 <= new_gamma) {
-            if (mSecCamera->setGamma(new_gamma) < 0) {
-                LOGE("%s::mSecCamera->setGamma(%d) fail", __func__, new_gamma);
-                ret = UNKNOWN_ERROR;
-            }
-        }
-    }
-
-    //slow ae
-    const char *new_slow_ae_str = mInternalParameters.get("slow_ae");
-
-    if (new_slow_ae_str != NULL) {
-        int new_slow_ae = -1;
-
-        if (!strcmp(new_slow_ae_str, "off"))
-            new_slow_ae = SLOW_AE_OFF;
-        else if (!strcmp(new_slow_ae_str, "on"))
-            new_slow_ae = SLOW_AE_ON;
-        else {
-            LOGE("%s::unmatched slow_ae(%s)", __func__, new_slow_ae_str);
-            ret = UNKNOWN_ERROR;
-        }
-
-        if (0 <= new_slow_ae) {
-            if (mSecCamera->setSlowAE(new_slow_ae) < 0) {
-                LOGE("%s::mSecCamera->setSlowAE(%d) fail", __func__, new_slow_ae);
-                ret = UNKNOWN_ERROR;
-            }
-        }
-    }
-
     /*Camcorder fix fps*/
     int new_sensor_mode = mInternalParameters.getInt("cam_mode");
 
@@ -1922,26 +1872,6 @@ status_t CameraHardwareSec::setParameters(const CameraParameters& params)
         new_shot_mode=0;
     }
 
-    //blur for Video call
-    int new_blur_level = mInternalParameters.getInt("blur");
-
-    if (0 <= new_blur_level) {
-        if (mSecCamera->setBlur(new_blur_level) < 0) {
-            LOGE("ERR(%s):Fail on mSecCamera->setBlur(%d)", __func__, new_blur_level);
-            ret = UNKNOWN_ERROR;
-        }
-    }
-
-
-    // chk_dataline
-    int new_dataline = mInternalParameters.getInt("chk_dataline");
-
-    if (0 <= new_dataline) {
-        if (mSecCamera->setDataLineCheck(new_dataline) < 0) {
-            LOGE("ERR(%s):Fail on mSecCamera->setDataLineCheck(%d)", __func__, new_dataline);
-            ret = UNKNOWN_ERROR;
-        }
-    }
     LOGV("%s return ret = %d", __func__, ret);
 
     return ret;
