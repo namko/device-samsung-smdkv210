@@ -204,6 +204,7 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
     parameterString.append(CameraParameters::EFFECT_NEGATIVE);
     parameterString.append(",");
     parameterString.append(CameraParameters::EFFECT_SEPIA);
+    p.set(CameraParameters::KEY_SUPPORTED_EFFECTS, parameterString.string());
 
     parameterString = CameraParameters::SCENE_MODE_AUTO;
     parameterString.append(",");
@@ -215,7 +216,6 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
     p.set(CameraParameters::KEY_SCENE_MODE,
           CameraParameters::SCENE_MODE_AUTO);
 
-    p.set(CameraParameters::KEY_SUPPORTED_EFFECTS, parameterString.string());
     p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(7500,10000)");
     p.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, "7500,10000");
     p.set(CameraParameters::KEY_FOCAL_LENGTH, "0.9");
