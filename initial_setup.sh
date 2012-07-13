@@ -1,7 +1,8 @@
 #!/system/xbin/busybox sh
 
-# Mount / as rw.
+# Mount /, /system as rw.
 mount -o rw,remount /
+mount -o rw,remount /system
 
 # Install busybox.
 /system/etc/install_busybox.sh
@@ -12,6 +13,7 @@ mount -o rw,remount /
 # Remove this script.
 rm /system/etc/initial_setup.sh
 
-# Mount / as ro.
+# Mount /, /system as ro.
+mount -o ro,remount /system
 mount -o ro,remount /
 
