@@ -74,7 +74,7 @@ on post-fs
     write /sys/class/rfkill/rfkill0/state 0
 
     # Permissions for System Server and daemons.
-    chown system system /sys/class/backlight/pwm-backlight/brightness
+    chown system system /sys/class/backlight/pwm-backlight.0/brightness
 
     # Fake a carrier.
     setprop gsm.sim.operator.numeric 310004

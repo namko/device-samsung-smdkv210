@@ -798,17 +798,14 @@ int SecCamera::startRecord(void)
     }
 
     /* enum_fmt, s_fmt sample */
-    // NV12T format causes a problem with video recording...
-    // it causes a tiling artifact on the output file and
-    // hence has been reverted to NV12.
-    ret = fimc_v4l2_enum_fmt(m_cam_fd2, V4L2_PIX_FMT_NV12);
+    ret = fimc_v4l2_enum_fmt(m_cam_fd2, V4L2_PIX_FMT_NV12T);
     CHECK(ret);
 
     LOGI("%s: m_recording_width = %d, m_recording_height = %d\n",
          __func__, m_recording_width, m_recording_height);
 
     ret = fimc_v4l2_s_fmt(m_cam_fd2, m_recording_width,
-                          m_recording_height, V4L2_PIX_FMT_NV12, 0);
+                          m_recording_height, V4L2_PIX_FMT_NV12T, 0);
     CHECK(ret);
 
     ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FRAME_RATE,

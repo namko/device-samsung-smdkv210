@@ -40,5 +40,5 @@ $(call inherit-product, device/samsung/smdkv210/device.mk)
 # Discard inherited values and use our own instead.
 PRODUCT_NAME := full_smdkv210
 PRODUCT_DEVICE := smdkv210
-PRODUCT_BRAND := Android
-PRODUCT_MODEL := Full Android on SMDKV210
+PRODUCT_BRAND := MID-Serials
+PRODUCT_MODEL := Android 4.0 Tablet

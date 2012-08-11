@@ -601,7 +601,7 @@ struct pcm *AudioHardware::openPcmOut_l()
         };
 
         TRACE_DRIVER_IN(DRV_PCM_OPEN)
-        mPcm = pcm_open(1, 0, flags, &config);  // SMDKV210: Use the second audio device.
+        mPcm = pcm_open(0, 0, flags, &config);  // SMDKV210: Use the first audio device.
         TRACE_DRIVER_OUT
         if (!pcm_is_ready(mPcm)) {
             LOGE("openPcmOut_l() cannot open pcm_out driver: %s\n", pcm_get_error(mPcm));
@@ -1646,7 +1646,7 @@ status_t AudioHardware::AudioStreamInALSA::open_l()
 
     LOGV("open pcm_in driver");
     TRACE_DRIVER_IN(DRV_PCM_OPEN)
-    mPcm = pcm_open(1, 0, flags, &config);  // SMDKV210: Use the second audio device.
+    mPcm = pcm_open(0, 0, flags, &config);  // SMDKV210: Use the first audio device.
     TRACE_DRIVER_OUT
     if (!pcm_is_ready(mPcm)) {
         LOGE("cannot open pcm_in driver: %s\n", pcm_get_error(mPcm));
