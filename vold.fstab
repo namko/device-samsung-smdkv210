@@ -9,8 +9,10 @@
 ## label        - Label for the volume
 ## mount_point  - Where the volume will be mounted
 ## part         - Partition # (1 based), or 'auto' for first usable partition.
-## <sysfs_path> - List of sysfs paths to source devices
+## <sysfs_path> - List of sysfs paths to source devices, must start with '/' character
+## flags        - (optional) Comma separated list of flags, must not contain '/' character
 ######################
 
-dev_mount sdcard /mnt/sdcard auto /devices/platform/s3c-sdhci.2/mmc_host/mmc2
-dev_mount udisk /mnt/udisk auto /devices/platform/s5p-ehci/usb1
+dev_mount sdcard /storage/sdcard0 auto /devices/platform/s3c-sdhci.0/mmc_host/mmc0
+dev_mount extsd /storage/sdcard1 auto /devices/platform/s3c-sdhci.2/mmc_host/mmc2
+dev_mount udisk /storage/udisk auto /devices/platform/s5p-ehci/usb1

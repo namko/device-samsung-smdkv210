@@ -29,8 +29,8 @@ LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
 LOCAL_SRC_FILES := 						\
 				sensors.cpp 			\
 				SensorBase.cpp			\
-                mma7660.cpp             \
-                InputEventReader.cpp
+				mma7660.cpp			\
+				InputEventReader.cpp
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libdl
 

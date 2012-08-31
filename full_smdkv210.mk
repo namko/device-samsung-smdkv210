@@ -20,11 +20,7 @@
 #
 
 # Get the long list of APNs
-PRODUCT_COPY_FILES := device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
-
-# Camera
-PRODUCT_PACKAGES := \
-    Camera
+PRODUCT_COPY_FILES += device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
@@ -34,8 +30,8 @@ PRODUCT_PACKAGES += \
         librs_jni
 
 # Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 $(call inherit-product, device/samsung/smdkv210/device.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
 # Discard inherited values and use our own instead.
 PRODUCT_NAME := full_smdkv210

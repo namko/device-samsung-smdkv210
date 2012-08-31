@@ -165,7 +165,7 @@ again:
                 count--;
             }
         } else {
-            LOGE("MmaSensor: unknown event (type=%d, code=%d)",
+            ALOGE("MmaSensor: unknown event (type=%d, code=%d)",
                     type, event->code);
         }
         mInputReader.next();

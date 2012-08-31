@@ -38,7 +38,7 @@ int list(int argc, char **argv) {
         nMixer = atoi(argv[2]);
 
     if (argc != 3 || nMixer < 0 || nMixer > 7) {
-        printf("Usage: ainfo list <card number>\n"
+        printf("Usage: audiotest list <card number>\n"
                "where <card number> is between 0 and 7\n");
         return 0;
     }
@@ -54,10 +54,8 @@ int list(int argc, char **argv) {
     printf("Found %d controls:\n", count);
 
     for (int i = 0; i < count; i++) {
-        char name[64], type[64];
         mixer_ctl *ctl = mixer_get_ctl(m, i);
-        mixer_ctl_get_name(ctl, name, sizeof(name));
-        printf("%d: %s (0x%x)\n", i, name, mixer_ctl_get_type(ctl));
+        printf("%d: %s (0x%x)\n", i, mixer_ctl_get_name(ctl), mixer_ctl_get_type(ctl));
     }
 
     return 0;
@@ -74,7 +72,7 @@ int read(int argc, char **argv) {
     }
 
     if (argc != 5 || nMixer < 0 || nMixer > 7 || nControl < 0 || location < 0) {
-        printf("Usage: ainfo read <card number> <control number> <location>\n"
+        printf("Usage: audiotest read <card number> <control number> <location>\n"
                "where <card number> is between 0 and 7\n"
                "<control number> is the control to be read\n"
                "<location> is the location to be read\n");
@@ -95,9 +93,7 @@ int read(int argc, char **argv) {
         return 0;        
     }
 
-    char name[64], type[64];
-    mixer_ctl_get_name(c, name, sizeof(name));
-    printf("Control: %s\nValue: %d\nPercent: %d\n", name, 
+    printf("Control: %s\nValue: %d\nPercent: %d\n", mixer_ctl_get_name(c), 
         mixer_ctl_get_value(c, location),  mixer_ctl_get_percent(c, location));
 
     return 0;
@@ -113,7 +109,7 @@ int read_range(int argc, char **argv) {
     }
 
     if (argc != 4 || nMixer < 0 || nMixer > 7 || nControl < 0) {
-        printf("Usage: ainfo read-range <card number> <control number> <location>\n"
+        printf("Usage: audiotest read-range <card number> <control number> <location>\n"
                "where <card number> is between 0 and 7\n"
                "<control number> is the control to be read\n");
         return 0;
@@ -133,9 +129,7 @@ int read_range(int argc, char **argv) {
         return 0;        
     }
 
-    char name[64], type[64];
-    mixer_ctl_get_name(c, name, sizeof(name));
-    printf("Control: %s\nMin: %d\nMax: %d\n", name, 
+    printf("Control: %s\nMin: %d\nMax: %d\n", mixer_ctl_get_name(c), 
         mixer_ctl_get_range_min(c),  mixer_ctl_get_range_max(c));
 
     return 0;
@@ -153,7 +147,7 @@ int write(int argc, char **argv) {
     }
 
     if (argc != 6 || nMixer < 0 || nMixer > 7 || nControl < 0 || location < 0) {
-        printf("Usage: ainfo write <card number> <control number> <location> <value>\n"
+        printf("Usage: audiotest write <card number> <control number> <location> <value>\n"
                "where <card number> is between 0 and 7\n"
                "<control number> is the control to be written\n"
                "<location> is the location to be written\n"
@@ -175,10 +169,8 @@ int write(int argc, char **argv) {
         return 0;        
     }
 
-    char name[64], type[64];
-    mixer_ctl_get_name(c, name, sizeof(name));
     mixer_ctl_set_value(c, location, value);
-    printf("Control: %s\nValue: %d\nPercent: %d\n", name, 
+    printf("Control: %s\nValue: %d\nPercent: %d\n", mixer_ctl_get_name(c), 
         mixer_ctl_get_value(c, location),  mixer_ctl_get_percent(c, location));
 
     return 0;
@@ -196,7 +188,7 @@ int write_percentage(int argc, char **argv) {
     }
 
     if (argc != 6 || nMixer < 0 || nMixer > 7 || nControl < 0 || location < 0) {
-        printf("Usage: ainfo write-percentage <card number> <control number> <location> <value>\n"
+        printf("Usage: audiotest write-percentage <card number> <control number> <location> <value>\n"
                "where <card number> is between 0 and 7\n"
                "<control number> is the control to be written\n"
                "<location> is the location to be written\n"
@@ -218,10 +210,8 @@ int write_percentage(int argc, char **argv) {
         return 0;        
     }
 
-    char name[64], type[64];
-    mixer_ctl_get_name(c, name, sizeof(name));
     mixer_ctl_set_percent(c, location, value);
-    printf("Control: %s\nPercent: %d\nValue: %d\n", name, 
+    printf("Control: %s\nPercent: %d\nValue: %d\n", mixer_ctl_get_name(c), 
         mixer_ctl_get_percent(c, location), mixer_ctl_get_value(c, location));
 
     return 0;
@@ -250,7 +240,7 @@ int play(int argc, char **argv) {
 
     if (argc != 6 || nMixer < 0 || nMixer > 7 || nDevice < 0 || 
             cfg.rate <= 0 || cfg.channels <= 0 || cfg.channels > 2) {
-        printf("Usage: ainfo play <card number> <device number> <rate> <channels>\n"
+        printf("Usage: audiotest play <card number> <device number> <rate> <channels>\n"
                "where <card number> is between 0 and 7\n"
                "<device number> is the device to play on\n"
                "<rate> is the sampling rate\n"

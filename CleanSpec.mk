@@ -37,6 +37,32 @@
 # ************************************************
 # NEWER CLEAN STEPS MUST BE AT THE END OF THE LIST
 # ************************************************
+
+# For example:
+#$(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/APPS/AndroidTests_intermediates)
+#$(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/JAVA_LIBRARIES/core_intermediates)
+#$(call add-clean-step, find $(OUT_DIR) -type f -name "IGTalkSession*" -print0 | xargs -0 rm -f)
+#$(call add-clean-step, rm -rf $(PRODUCT_OUT)/data/*)
 $(call add-clean-step, find $(PRODUCT_OUT) -name "*.apk" | xargs rm)
+
+# ************************************************
+# NEWER CLEAN STEPS MUST BE AT THE END OF THE LIST
+# ************************************************
 $(call add-clean-step, rm -rf $(TARGET_OUT)/build.prop)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/obj/SHARED_LIBRARIES/libaudio_intermediates)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/obj/SHARED_LIBRARIES/libaudio_intermediates)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/obj/STATIC_LIBRARIES/libasound_intermediates)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/obj/EXECUTABLES/alsa_*)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/system/bin/alsa_*)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/system/etc/asound.conf)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/system/usr/share/alsa)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/obj/PACKAGING/systemimage_intermediates)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/obj/SHARED_LIBRARIES/libaudio_intermediates)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/default.prop)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/system/lib/hw/camera.s5pc110.so)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/obj/lib/camera.s5pc110.so)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/obj/SHARED_LIBRARIES/camera.s5pc110_intermediates/LINKED/camera.s5pc110.so)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/symbols/system/lib/hw/camera.s5pc110.so)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/app/Tag.apk)
+$(call add-clean-step, rm -rf $(OUT_DIR)/target/product/smdkv210/obj/STATIC_LIBRARIES/libaudioutils_intermediates)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/updatecmds/migrate_nfc.txt)
