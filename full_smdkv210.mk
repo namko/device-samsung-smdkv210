@@ -37,4 +37,4 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 PRODUCT_NAME := full_smdkv210
 PRODUCT_DEVICE := smdkv210
 PRODUCT_BRAND := MID-Serials
-PRODUCT_MODEL := Android 4.0 Tablet
+PRODUCT_MODEL := Android 4.1 Tablet
