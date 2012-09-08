@@ -132,6 +132,11 @@ PRODUCT_PACKAGES += \
 	libOMX.SEC.M4V.Encoder \
 	libOMX.SEC.AVC.Encoder
 
+
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+	make_ext4fs
+
 # Test utilites
 PRODUCT_PACKAGES += \
 	audiotest \
