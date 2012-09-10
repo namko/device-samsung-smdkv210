@@ -135,6 +135,7 @@ PRODUCT_PACKAGES += \
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
+	e2fsck \
 	make_ext4fs
 
 # Test utilites
@@ -310,6 +311,12 @@ PRODUCT_COPY_FILES += \
     device/samsung/smdkv210/proprietary/lib/generic/libdl-2.10.1.so:system/lib/generic/libdl-2.10.1.so \
     device/samsung/smdkv210/proprietary/lib/generic/libntfs-3g.so.83.0.0:system/lib/generic/libntfs-3g.so.83.0.0 \
     device/samsung/smdkv210/proprietary/lib/generic/setup_genericlibs.sh:system/etc/setup_genericlibs.sh
+
+# ntfsprogs binaries
+PRODUCT_COPY_FILES += \
+    device/samsung/smdkv210/proprietary/bin/ntfs-3g:system/bin/ntfs-3g \
+    device/samsung/smdkv210/proprietary/bin/ntfsfix:system/bin/ntfsfix \
+    device/samsung/smdkv210/proprietary/bin/mkntfs:system/bin/mkntfs
 
 # Dalvik heap limits.
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
