@@ -282,6 +282,35 @@ PRODUCT_COPY_FILES += \
     device/samsung/smdkv210/google/vendor/pittpatt/models/detection/yaw_roll_face_detectors.6/head-y0-yi45-p0-pi45-rp30-ri30.5-v24/full_model.bin:system/vendor/pittpatt/models/detection/yaw_roll_face_detectors.6/head-y0-yi45-p0-pi45-rp30-ri30.5-v24/full_model.bin \
     device/samsung/smdkv210/google/vendor/pittpatt/models/recognition/face.face.y0-y0-22-b-N/full_model.bin:system/vendor/pittpatt/models/recognition/face.face.y0-y0-22-b-N/full_model.bin
 
+# GNU Linux libs
+PRODUCT_COPY_FILES += \
+    device/samsung/smdkv210/proprietary/lib/generic/libgcc_s.so.1:system/lib/generic/libgcc_s.so.1 \
+    device/samsung/smdkv210/proprietary/lib/generic/libresolv-2.10.1.so:system/lib/generic/libresolv-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libc-2.10.1.so:system/lib/generic/libc-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libnss_nisplus-2.10.1.so:system/lib/generic/libnss_nisplus-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/librt-2.10.1.so:system/lib/generic/librt-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libnsl-2.10.1.so:system/lib/generic/libnsl-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libm-2.10.1.so:system/lib/generic/libm-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libutil-2.10.1.so:system/lib/generic/libutil-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libpcprofile.so:system/lib/generic/libpcprofile.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libmemusage.so:system/lib/generic/libmemusage.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libnss_hesiod-2.10.1.so:system/lib/generic/libnss_hesiod-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libBrokenLocale-2.10.1.so:system/lib/generic/libBrokenLocale-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libnss_nis-2.10.1.so:system/lib/generic/libnss_nis-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libSegFault.so:system/lib/generic/libSegFault.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libthread_db-1.0.so:system/lib/generic/libthread_db-1.0.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libnss_files-2.10.1.so:system/lib/generic/libnss_files-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libnss_compat-2.10.1.so:system/lib/generic/libnss_compat-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/ld-2.10.1.so:system/lib/generic/ld-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libcrypt-2.10.1.so:system/lib/generic/libcrypt-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libanl-2.10.1.so:system/lib/generic/libanl-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libcidn-2.10.1.so:system/lib/generic/libcidn-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libpthread-2.10.1.so:system/lib/generic/libpthread-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libnss_dns-2.10.1.so:system/lib/generic/libnss_dns-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libdl-2.10.1.so:system/lib/generic/libdl-2.10.1.so \
+    device/samsung/smdkv210/proprietary/lib/generic/libntfs-3g.so.83.0.0:system/lib/generic/libntfs-3g.so.83.0.0 \
+    device/samsung/smdkv210/proprietary/lib/generic/setup_genericlibs.sh:system/etc/setup_genericlibs.sh
+
 # Dalvik heap limits.
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 

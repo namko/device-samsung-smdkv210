@@ -7,6 +7,9 @@ mount -o rw,remount /system
 # Install busybox.
 /system/etc/install_busybox.sh
 
+# Setup libs
+/system/etc/setup_genericlibs.sh
+
 # Setup MACs for BT and WiFi.
 /system/etc/check_property.sh
 

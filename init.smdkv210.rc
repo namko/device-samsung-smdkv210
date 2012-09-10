@@ -48,6 +48,9 @@ on fs
     symlink /storage/sdcard1 /mnt/extsd
     symlink /storage/udisk /mnt/udisk
 
+# generic libs.
+    symlink /system/lib/generic /lib
+
 # permissions for bluetooth.
     chown bluetooth bluetooth /system/etc/bluetooth
     chmod 770 /system/etc/bluetooth
